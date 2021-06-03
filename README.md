@@ -5,10 +5,12 @@
  
 ## Tecnologías
 - HTML
-- IONIC
+- IONIC 5.6.8
 - TypeScript
 - JSON
-- Cordova
+- Cordova CLI 9
+- Node.js 14.17.0
+- Angular
 
 
 
