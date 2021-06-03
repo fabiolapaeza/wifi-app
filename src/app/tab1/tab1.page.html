@@ -17,10 +17,13 @@
     <ion-refresher-content>
       <div>
         <p>
-          <ion-text color="primary">Nombre de la red: </ion-text>{{connected.SSID}}
+          <ion-text color="warning">{{ errorMsg }}</ion-text>
         </p>
         <p>
-          <ion-text color="primary">RSSI: </ion-text>{{ connected.level}}
+          <ion-text color="primary">Nombre de la red: </ion-text>{{ connected.SSID }}
+        </p>
+        <p>
+          <ion-text color="primary">RSSI: </ion-text>{{ connected.level }}
         </p>
         <br>
         <ion-button color="primary" (click)="save()" [disabled]="!connected.SSID">Guardar</ion-button>

@@ -10,15 +10,41 @@ import { AppService } from '../services/app.service';
 })
 export class Tab1Page {
   public connected: any = {};
-
+  public errorMsg: string = '';
   constructor(private wifiWizard2: WifiWizard2,
               private platform: Platform,
               private app: AppService) {}
 
   async example() {
-    const result =  await this.wifiWizard2.scan();
-    const BSSID = await this.wifiWizard2.getConnectedBSSID();
-    this.connected = result.find(data => data.BSSID === BSSID);
+    try {
+      const result =  await this.wifiWizard2.scan();
+      const BSSID = await this.wifiWizard2.getConnectedBSSID();
+      this.connected = result.find(data => data.BSSID === BSSID);
+      this.getMessage('');
+    } catch (error) {
+      this.getMessage(error);
+    }
+  }
+
+  async getMessage(msg) {
+    // console.log(msg);
+    switch(msg) {
+      case 'SCAN_FAILED': 
+        this.errorMsg = 'Es posible que la app tenga denegado el permiso de ubicación, acceda a la configuración y otorgue el permiso.'
+        const permision = await this.wifiWizard2.requestPermission();
+        this.getMessage(permision);
+        break;
+      case 'PERMISSION_GRANTED':
+        this.errorMsg = 'Refresque la pantalla haciendo pull';
+        break;
+      case 'CONNECTION_NOT_COMPLETED':
+        this.errorMsg = 'No está conectado a ninguna de las redes disponibles';
+        this.connected = {};
+        break;
+      default: 
+        this.errorMsg = '';
+        break;
+    }
   }
 
   async ngOnInit() {
