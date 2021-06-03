@@ -35,5 +35,5 @@ Por ejemplo: http://192.168.1.68:3000/
 
 ## https://forum.ionicframework.com/t/ionic-4-android-9-cleartext-http-not-permitted-error/172999
  
- 
+El archivo apk se encuentra dentro de wifi-app.zip desde la carpeta raiz.
  
