@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tabs',
@@ -6,7 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  private subscription: Subscription;
+  constructor(private platform: Platform) {}
 
-  constructor() {}
-
+  ionViewDidEnter(){
+    this.subscription = this.platform.backButton.subscribe(()=>{
+      navigator['app'].exitApp();
+    });
+  }
+  
+  ionViewWillLeave(){
+    this.subscription.unsubscribe();
+  }
 }
